@@ -2,197 +2,101 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>卡牌生成器</title>
-    <style>
-        .card-container {
-            width: 400px;
-            height: 600px;
-            margin: 20px auto;
-            border: 2px solid #333;
-            border-radius: 10px;
-            position: relative;
-            overflow: hidden;
-        }
-        .card-bg {
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-            transition: background-image 0.3s ease;
-        }
-        .cost-wrapper {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            width: 40px;
-            height: 40px;
-            position: relative;
-        }
-        .cost-icon {
-            width: 100%;
-            height: 100%;
-            display: none;
-        }
-        .cost-num {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            line-height: 40px;
-            text-align: center;
-            color: #fff;
-            font-size: 18px;
-            text-shadow: 1px 1px 2px #000;
-            display: none;
-        }
-        .card-desc {
-            position: absolute;
-            bottom: 20px;
-            left: 0;
-            right: 0;
-            padding: 0 15px;
-            text-align: center;
-            white-space: pre-line;
-            text-shadow: 1px 1px 2px #000;
-            transition: color 0.3s ease, font-weight 0.3s ease;
-        }
-        .config-panel {
-            width: 400px;
-            margin: 20px auto;
-            padding: 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        .config-item {
-            margin-bottom: 10px;
-        }
-        textarea {
-            width: 100%;
-            min-height: 60px;
-            resize: vertical;
-        }
-        .cost-num-input {
-            display: none;
-            width: 60px;
-            margin-left: 10px;
-        }
-        .desc-style-controls {
-            margin-top: 5px;
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>弈仙牌卡牌生成器</title>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <link rel="stylesheet" href="./card-style.css">
 </head>
 <body>
     <div class="config-panel">
-        <!-- 消耗类型单选及数字输入 -->
         <div class="config-item">
-            <label>消耗类型：</label>
-            <input type="radio" name="costType" value="none" checked> 无
-            <input type="radio" name="costType" value="life"> 生命
-            <input type="radio" name="costType" value="spirit"> 灵气
-            <input type="number" id="costNumInput" class="cost-num-input" placeholder="数值" min="1" value="1">
+            <label>卡牌名称：</label>
+            <input type="text" id="cardNameInput" value="冰灵护体丹" oninput="updateCards()">
         </div>
-        <!-- 卡牌描述及样式控制 -->
         <div class="config-item">
-            <label>卡牌描述（支持换行）：</label>
-            <textarea id="descInput" placeholder="输入卡牌描述，可直接换行"></textarea>
-            <div class="desc-style-controls">
-                <label>描述样式：</label>
-                <input type="checkbox" id="descBold"> 加粗
-                <label>文字颜色：</label>
-                <input type="color" id="descColor" value="#ffffff">
+            <label>修为：</label>
+            <div class="xiuwei-radio-group">
+                <input type="radio" name="xiuwei" value="LianQi" onchange="updateCards()"> 练气
+                <input type="radio" name="xiuwei" value="ZhuJi" onchange="updateCards()"> 筑基
+                <input type="radio" name="xiuwei" value="JinDan" onchange="updateCards()"> 金丹
+                <input type="radio" name="xiuwei" value="YuanYing" id="xiuweiYingYuan" onchange="updateCards()"> 元婴
+                <input type="radio" name="xiuwei" value="HuaShen" checked onchange="updateCards()"> 化神
+                <input type="radio" name="xiuwei" value="FanXu" onchange="updateCards()"> 返虚
             </div>
         </div>
-        <!-- 修为和等级项 -->
         <div class="config-item">
-            <label>修为等级：</label>
-            <select id="xiuweiSelect">
-                <option value="Lianqi">练气</option>
-                <option value="Zhuji">筑基</option>
-                <option value="Jindan">金丹</option>
-                <option value="Yingyuan">元婴</option>
-                <option value="Huashen">化神</option>
-                <option value="Fanxu">返虚</option>
-            </select>
+            <label>消耗类型：</label>
+            <div class="cost-type-group">
+                <input type="radio" name="costType" value="none" onchange="toggleCostInput()"> 无
+                <input type="radio" name="costType" value="life" checked onchange="toggleCostInput()"> 血
+                <input type="radio" name="costType" value="spirit" onchange="toggleCostInput()"> 灵气
+                <input type="number" id="costNumInput" value="1" style="width: 60px;" oninput="updateCards()">
+            </div>
         </div>
         <div class="config-item">
-            <label>等级选项：</label>
-            <select id="levelSelect">
-                <option value="0">1</option>
-                <option value="1">2</option>
-                <option value="2">3</option>
-            </select>
+            <label>卡牌卡图：</label>
+            <input type="file" id="cardImgInput" accept="image/*" onchange="previewCardImg()">
         </div>
-        <button onclick="updateCard()">更新卡牌</button>
+        <div class="config-item">
+            <label>卡牌描述（等级1）：</label>
+            <div class="rich-text-toolbar">
+                <button class="tool-btn bold" onclick="formatText('bold', 'descInput')">加粗</button>
+                <button class="color-picker-btn" onclick="document.getElementById('textColorPicker').click()">
+                    <span class="color-block" id="previewColor"></span>
+                    颜色
+                </button>
+                <input type="color" id="textColorPicker" value="#c0392b" title="设置文字颜色" onchange="updateColorPreview()">
+            </div>
+            <textarea id="descInput" rows="3" oninput="updateCards()">获得三层护体
+[color=#c0392b]消耗[/color]</textarea>
+        </div>
+        <div class="config-item">
+            <label>卡牌描述（等级2）：</label>
+            <textarea id="descInput2" rows="3" oninput="updateCards()"></textarea>
+        </div>
+        <div class="config-item">
+            <label>卡牌描述（等级3）：</label>
+            <textarea id="descInput3" rows="3" oninput="updateCards()"></textarea>
+        </div>
+        <button class="export-btn" onclick="exportCardsAsImage()">导出卡牌</button>
     </div>
 
-    <div class="card-container">
-        <div class="card-bg" id="cardBg"></div>
-        <div class="cost-wrapper">
-            <img id="costIcon" class="cost-icon" src="" alt="消耗图标">
-            <div id="costNum" class="cost-num"></div>
+    <div class="cards-container" id="cardsToExport">
+        <div class="card-container">
+            <div class="card-bg" id="cardBg0" id="cardBg0"></div>
+            <img class="card-img" id="cardImg0" src="" alt="卡图" style="display: none;">
+            <div class="card-desc-bg"></div>
+            <div class="cost-wrapper">
+                <div id="costNum0" class="cost-num">1</div>
+            </div>
+            <div class="card-name" id="cardName0">冰灵护体丹</div>
+            <div class="card-desc" id="cardDesc0">获得三层护体
+<span style="color:#c0392b">消耗</span></div>
         </div>
-        <div class="card-desc" id="cardDesc"></div>
+        <div class="card-container">
+            <div class="card-bg" id="cardBg1"></div>
+            <img class="card-img" id="cardImg1" src="" alt="卡图" style="display: none;">
+            <div class="card-desc-bg"></div>
+            <div class="cost-wrapper">
+                <div id="costNum1" class="cost-num">1</div>
+            </div>
+            <div class="card-name" id="cardName1">冰灵护体丹</div>
+            <div class="card-desc" id="cardDesc1">获得三层护体
+<span style="color:#c0392b">消耗</span></div>
+        </div>
+        <div class="card-container">
+            <div class="card-bg" id="cardBg2"></div>
+            <img class="card-img" id="cardImg2" src="" alt="卡图" style="display: none;">
+            <div class="card-desc-bg"></div>
+            <div class="cost-wrapper">
+                <div id="costNum2" class="cost-num">1</div>
+            </div>
+            <div class="card-name" id="cardName2">冰灵护体丹</div>
+            <div class="card-desc" id="cardDesc2">获得三层护体
+<span style="color:#c0392b">消耗</span></div>
+        </div>
     </div>
 
-    <script>
-        // 监听消耗类型切换，控制数字输入框显示
-        const costTypeRadios = document.querySelectorAll('input[name="costType"]');
-        const costNumInput = document.getElementById('costNumInput');
-        costTypeRadios.forEach(radio => {
-            radio.addEventListener('change', function() {
-                costNumInput.style.display = this.value === 'none' ? 'none' : 'inline-block';
-                updateCard();
-            });
-        });
-
-        // 监听描述样式控件变化，实时更新
-        const descBold = document.getElementById('descBold');
-        const descColor = document.getElementById('descColor');
-        descBold.addEventListener('change', updateCard);
-        descColor.addEventListener('input', updateCard);
-
-        // 初始化卡牌
-        updateCard();
-
-        function updateCard() {
-            // 处理消耗类型、图标和数字
-            const selectedCostType = document.querySelector('input[name="costType"]:checked').value;
-            const costNum = document.getElementById('costNumInput').value || 1;
-            const costIconEl = document.getElementById('costIcon');
-            const costNumEl = document.getElementById('costNum');
-            
-            if (selectedCostType === 'none') {
-                costIconEl.style.display = 'none';
-                costNumEl.style.display = 'none';
-            } else {
-                // 区分生命和灵气图标（相对路径，与网页同目录）
-                const iconUrl = selectedCostType === 'life' 
-                    ? 'Icon_牺牲(卡牌).png' 
-                    : 'Icon_灵气(卡牌).png';
-                costIconEl.src = iconUrl;
-                costIconEl.style.display = 'block';
-                costNumEl.innerText = costNum;
-                costNumEl.style.display = 'block';
-            }
-
-            // 处理描述及样式
-            const descContent = document.getElementById("descInput").value;
-            const descEl = document.getElementById("cardDesc");
-            descEl.innerHTML = descContent || "请输入卡牌描述";
-            // 设置加粗和颜色
-            descEl.style.fontWeight = descBold.checked ? 'bold' : 'normal';
-            descEl.style.color = descColor.value;
-
-            // 处理修为和背景切换（背景图为相对路径，与网页同目录）
-            const xiuwei = document.getElementById("xiuweiSelect").value;
-            const bgLevel = document.getElementById("levelSelect").value;
-            const bgUrl = `CardUI_${xiuwei}_${bgLevel}.png`;
-            document.getElementById("cardBg").style.backgroundImage = `url(${bgUrl})`;
-        }
-    </script>
+    <script src="./card-script.js"></script>
 </body>
 </html>
