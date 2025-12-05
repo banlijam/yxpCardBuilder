@@ -39,7 +39,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            line-height: 40 line-height: 40px;
+            line-height: 40px;
             text-align: center;
             color: #fff;
             font-size: 18px;
@@ -169,10 +169,10 @@
                 costIconEl.style.display = 'none';
                 costNumEl.style.display = 'none';
             } else {
-                // 区分生命和灵气图标（可替换实际链接）
+                // 区分生命和灵气图标（相对路径，与网页同目录）
                 const iconUrl = selectedCostType === 'life' 
-                    ? 'https://gitee.com/banlijam/yxp-card-builder/raw/master/Icon_%E7%81%B5%E6%B0%94(%E5%8D%A1%E7%89%8C).png' 
-                    : 'https://gitee.com/banlijam/yxp-card-builder/raw/master/Icon_%E7%81%B5%E6%B0%94(%E5%8D%A1%E7%89%8C).png';
+                    ? 'Icon_牺牲(卡牌).png' 
+                    : 'Icon_灵气(卡牌).png';
                 costIconEl.src = iconUrl;
                 costIconEl.style.display = 'block';
                 costNumEl.innerText = costNum;
@@ -187,10 +187,10 @@
             descEl.style.fontWeight = descBold.checked ? 'bold' : 'normal';
             descEl.style.color = descColor.value;
 
-            // 处理修为和背景切换
+            // 处理修为和背景切换（背景图为相对路径，与网页同目录）
             const xiuwei = document.getElementById("xiuweiSelect").value;
             const bgLevel = document.getElementById("levelSelect").value;
-            const bgUrl = `https://gitee.com/banlijam/yxp-card-builder/raw/master/CardUI_${xiuwei}_${bgLevel}.png`;
+            const bgUrl = `CardUI_${xiuwei}_${bgLevel}.png`;
             document.getElementById("cardBg").style.backgroundImage = `url(${bgUrl})`;
         }
     </script>
