@@ -227,13 +227,12 @@ input[type="file"] {
     display: flex;
     align-items: center;
     top: 120px;
-    /* 垂直居中 */
     justify-content: center;
-    /* 水平居中，如果需要的话 */
     height: 75px;
     left: 9px;
     width: 107px;
-    /* 父容器需要有一个高度，这里设为视口高度，你可以根据需要调整 */
+    background-position: center;
+    background-size: contain;
 }
 
 .card-desc {

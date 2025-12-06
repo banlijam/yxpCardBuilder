@@ -18,12 +18,6 @@ function toggleCostInput() {
 }
 
 function toggleCardInput() {
-    const costType = document.querySelector('input[name="cardType"]:checked').value;
-    if (costType === 'none') {
-        cardDescBg.style.backgroundImage = 'none';
-    } else {
-        cardDescBg.style.backgroundImage = 'url("' + costType + '.jpg")';
-    }
     updateCards();
 }
 
@@ -93,6 +87,7 @@ function updateCards() {
     let desc3 = document.getElementById('descInput3').value || desc1;
     // 消耗背景图路径修改
     const costIconUrl = costType === 'spirit' ? 'url(ling.png)' : costType === 'life' ? 'url(xue.png)' : 'none';
+    const cardType = document.querySelector('input[name="cardType"]:checked').value;
     // 修正元婴背景图名称（假设元婴背景图为YingYuan.png，可根据实际调整）
     const xiuweiBgMap = {
         LianQi: 'CardUI_LianQi_',
@@ -132,6 +127,14 @@ function updateCards() {
             numEl.style.display = 'block';
             numEl.innerText = costNum;
             numEl.style.backgroundImage = costIconUrl;
+        }
+
+
+        const cardDescBg = document.getElementById(`cardDescBg${i}`)
+        if (cardType === 'none') {
+            cardDescBg.style.backgroundImage = 'none';
+        } else {
+            cardDescBg.style.backgroundImage = 'url("' + cardType + '.png")';
         }
     }
 }

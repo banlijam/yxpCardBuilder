@@ -38,9 +38,9 @@
         <div class="config-item">
             <label>卡牌类型：</label>
             <div class="cost-type-group">
-                <input type="radio" name="cardType" value="none" onchange="toggleCardInput()"> 无
+                <input type="radio" name="cardType" value="none" checked onchange="toggleCardInput()"> 无
                 <input type="radio" name="cardType" value="fabao" onchange="toggleCardInput()"> 法宝
-                <input type="radio" name="cardType" value="lingchong" checked onchange="toggleCardInput()"> 灵宠
+                <input type="radio" name="cardType" value="lingchong" onchange="toggleCardInput()"> 灵宠
             </div>
         </div>
         <div class="config-item">
@@ -77,12 +77,11 @@
         <div class="card-container">
             <img class="card-img" id="cardImg0" src="" alt="卡图" style="display: none;">
             <div class="card-bg" id="cardBg0" id="cardBg0"></div>
-            <div class="card-desc-bg"></div>
             <div class="cost-wrapper">
                 <div id="costNum0" class="cost-num">1</div>
             </div>
             <div class="card-name" id="cardName0">冰灵护体丹</div>
-            <div class="card-parent">
+            <div class="card-parent" id="cardDescBg0">
                 <div class="card-desc" id="cardDesc0">获得二层护体
                     <span style="color:#c0392b">消耗</span>
                 </div>
@@ -91,12 +90,11 @@
         <div class="card-container">
             <img class="card-img" id="cardImg1" src="" alt="卡图" style="display: none;">
             <div class="card-bg" id="cardBg1"></div>
-            <div class="card-desc-bg"></div>
             <div class="cost-wrapper">
                 <div id="costNum1" class="cost-num">1</div>
             </div>
             <div class="card-name" id="cardName1">冰灵护体丹</div>
-            <div class="card-parent">
+            <div class="card-parent" id="cardDescBg1">
                 <div class="card-desc" id="cardDesc1">获得二层护体
                     <span style="color:#c0392b">消耗</span>
                 </div>
@@ -105,12 +103,11 @@
         <div class="card-container">
             <img class="card-img" id="cardImg2" src="" alt="卡图" style="display: none;">
             <div class="card-bg" id="cardBg2"></div>
-            <div class="card-desc-bg"></div>
             <div class="cost-wrapper">
                 <div id="costNum2" class="cost-num">1</div>
             </div>
             <div class="card-name" id="cardName2">冰灵护体丹</div>
-            <div class="card-parent">
+            <div class="card-parent" id="cardDescBg2">
                 <div class="card-desc" id="cardDesc2">获得二层护体
                     <span style="color:#c0392b">消耗</span>
                 </div>
