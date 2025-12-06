@@ -1,15 +1,22 @@
+@font-face {
+    font-family: 'MyCustomFont';
+    src: url('1.ttf') format('truetype');
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Microsoft YaHei", "SimHei", serif;
+    font-family: "MyCustomFont", "SimHei", serif;
     -webkit-touch-callout: none;
 }
+
 body {
     background-color: #1a2b4a;
     color: #fff;
     padding: 10px;
 }
+
 .config-panel {
     width: 100%;
     max-width: 600px;
@@ -18,17 +25,24 @@ body {
     background: #fff;
     color: #333;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
+
 .config-item {
     margin-bottom: 15px;
 }
+
 .config-item label {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
 }
-input[type="text"], textarea, input[type="number"], input[type="color"], input[type="file"] {
+
+input[type="text"],
+textarea,
+input[type="number"],
+input[type="color"],
+input[type="file"] {
     width: 100%;
     padding: 8px;
     border: 1px solid #ccc;
@@ -37,6 +51,7 @@ input[type="text"], textarea, input[type="number"], input[type="color"], input[t
     -webkit-user-select: text;
     user-select: text;
 }
+
 .rich-text-toolbar {
     display: flex;
     gap: 8px;
@@ -45,6 +60,7 @@ input[type="text"], textarea, input[type="number"], input[type="color"], input[t
     background: #f5f5f5;
     border-radius: 4px;
 }
+
 .tool-btn {
     padding: 4px 8px;
     border: 1px solid #ccc;
@@ -53,16 +69,19 @@ input[type="text"], textarea, input[type="number"], input[type="color"], input[t
     cursor: pointer;
     font-size: 14px;
     transition: all 0.2s ease;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
+
 .tool-btn:hover {
     background: #e9e9e9;
     border-color: #999;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
 }
+
 .tool-btn.bold {
     font-weight: bold;
 }
+
 .color-picker-btn {
     padding: 4px 8px;
     border: 1px solid #ccc;
@@ -74,13 +93,15 @@ input[type="text"], textarea, input[type="number"], input[type="color"], input[t
     align-items: center;
     gap: 4px;
     transition: all 0.2s ease;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
+
 .color-picker-btn:hover {
     background: #e9e9e9;
     border-color: #999;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
 }
+
 .color-picker-btn .color-block {
     width: 14px;
     height: 14px;
@@ -88,15 +109,19 @@ input[type="text"], textarea, input[type="number"], input[type="color"], input[t
     background-color: #c0392b;
     border: 1px solid #999;
 }
+
 #textColorPicker {
     display: none;
 }
-.xiuwei-radio-group, .cost-type-group {
+
+.xiuwei-radio-group,
+.cost-type-group {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
     align-items: center;
 }
+
 .export-btn {
     width: 100%;
     height: 40px;
@@ -108,9 +133,11 @@ input[type="text"], textarea, input[type="number"], input[type="color"], input[t
     font-weight: bold;
     cursor: pointer;
 }
+
 .export-btn:hover {
     background-color: #3367d6;
 }
+
 .cards-container {
     width: 100%;
     max-width: 1000px;
@@ -120,6 +147,7 @@ input[type="text"], textarea, input[type="number"], input[type="color"], input[t
     justify-content: center;
     flex-wrap: wrap;
 }
+
 .card-container {
     width: 130px;
     height: 210px;
@@ -127,8 +155,9 @@ input[type="text"], textarea, input[type="number"], input[type="color"], input[t
     border: 2px solid #886633;
     border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 0 8px rgba(0,0,0,0.5);
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
 }
+
 .card-bg {
     width: 100%;
     height: 100%;
@@ -142,28 +171,30 @@ input[type="text"], textarea, input[type="number"], input[type="color"], input[t
     opacity: 1;
     visibility: visible;
 }
+
 .card-desc-bg {
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
     height: 80px;
-    background: url("desc-bg.png") no-repeat;
     background-size: 100% 100%;
     z-index: 1;
 }
+
 .cost-wrapper {
     position: absolute;
     top: 0px;
-    left: 0px;
+    left: 5px;
     display: flex;
     flex-direction: column;
     align-items: center;
     z-index: 2;
 }
+
 .cost-num {
     color: #fff;
-    font-size: 14px;
+    font-size: 17px;
     font-weight: bold;
     text-shadow: 1px 1px 2px #000;
     display: none;
@@ -175,22 +206,38 @@ input[type="text"], textarea, input[type="number"], input[type="color"], input[t
     background-repeat: no-repeat;
     text-align: center;
     line-height: 22px;
+    padding-top: 3px;
 }
+
 .card-name {
     position: absolute;
-    top: 25px;
-    left: 8px;
+    top: 28px;
+    left: 12px;
     writing-mode: vertical-rl;
     color: #fff;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
     text-shadow: 1px 1px 2px #000;
     z-index: 2;
     letter-spacing: 2px;
 }
-.card-desc {
+
+.card-parent {
     position: absolute;
-    bottom: 12px;
+    display: flex;
+    align-items: center;
+    top: 120px;
+    /* 垂直居中 */
+    justify-content: center;
+    /* 水平居中，如果需要的话 */
+    height: 75px;
+    left: 9px;
+    width: 107px;
+    /* 父容器需要有一个高度，这里设为视口高度，你可以根据需要调整 */
+}
+
+.card-desc {
+    top: 120px;
     left: 10px;
     right: 10px;
     text-align: center;
@@ -200,14 +247,15 @@ input[type="text"], textarea, input[type="number"], input[type="color"], input[t
     z-index: 2;
     white-space: pre-line;
 }
+
 /* 卡图样式 */
 .card-img {
-    width: 100%;
-    height: 120px;
+    width: 92px;
+    height: 107px;
     position: absolute;
-    top: 20px;
-    left: 0;
-    z-index: 1;
-    object-fit: cover;
+    top: 11px;
+    left: 26px;
+    z-index: -1;
+    object-fit: fill;
     opacity: 0.9;
 }

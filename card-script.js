@@ -17,6 +17,16 @@ function toggleCostInput() {
     updateCards();
 }
 
+function toggleCardInput() {
+    const costType = document.querySelector('input[name="cardType"]:checked').value;
+    if (costType === 'none') {
+        cardDescBg.style.backgroundImage = 'none';
+    } else {
+        cardDescBg.style.backgroundImage = 'url("' + costType + '.jpg")';
+    }
+    updateCards();
+}
+
 function updateColorPreview() {
     const color = document.getElementById('textColorPicker').value;
     document.getElementById('previewColor').style.backgroundColor = color;
@@ -53,7 +63,7 @@ function formatText(type, textareaId) {
     updateCards();
 }
 
-document.getElementById('textColorPicker').addEventListener('change', function() {
+document.getElementById('textColorPicker').addEventListener('change', function () {
     formatText('color', 'descInput');
 });
 
@@ -62,7 +72,7 @@ function previewCardImg() {
     const file = document.getElementById('cardImgInput').files[0];
     if (!file) return;
     const reader = new FileReader();
-    reader.onload = function(e) {
+    reader.onload = function (e) {
         for (let i = 0; i < 3; i++) {
             const imgEl = document.getElementById(`cardImg${i}`);
             imgEl.src = e.target.result;
