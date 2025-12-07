@@ -209,7 +209,7 @@ input[type="file"] {
 .card-name {
     position: absolute;
     top: 28px;
-    left: 10px;
+    left: 8px;
     writing-mode: vertical-rl;
     color: #fff;
     font-size: 14px;
@@ -256,4 +256,5 @@ input[type="file"] {
     opacity: 0.9;
 
 }
+
 
