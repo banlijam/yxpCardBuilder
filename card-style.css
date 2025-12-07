@@ -1,13 +1,10 @@
-@font-face {
-    font-family: 'MyCustomFont';
-    src: url('1.ttf') format('truetype');
-}
+
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "MyCustomFont", "SimHei", serif;
+    font-family: "SimHei", serif;
     -webkit-touch-callout: none;
 }
 
@@ -259,3 +256,4 @@ input[type="file"] {
     opacity: 0.9;
 
 }
+
